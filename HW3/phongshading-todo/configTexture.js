@@ -1,5 +1,6 @@
 /*******************生成立方体纹理对象*******************************/
 function configureCubeMap(program) {
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
 	gl.activeTexture(gl.TEXTURE0);
 
     cubeMap = gl.createTexture();
@@ -29,10 +30,30 @@ function configureCubeMap(program) {
         }(cubeMap, face, image);
     }
 }
-
-/*TODO1:创建一般2D颜色纹理对象并加载图片*/
+/*TODO1: 创建一般2D颜色纹理对象并加载图片*/
 function configureTexture(image) {
+    // 创建纹理
     var texture = gl.createTexture();
-    
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+
+    // 纹理参数
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);  // 翻转 Y 方向，使纹理正常显示
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+
+    // 加载图片到纹理
+    gl.texImage2D(
+        gl.TEXTURE_2D,      // target
+        0,                  // level
+        gl.RGBA,            // internal format
+        gl.RGBA,            // src format
+        gl.UNSIGNED_BYTE,   // src type
+        image               // image object
+    );
+
+    gl.bindTexture(gl.TEXTURE_2D, null);  // 解绑
+
     return texture;
 }

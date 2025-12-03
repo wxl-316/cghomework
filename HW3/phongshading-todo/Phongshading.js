@@ -145,7 +145,7 @@ window.onload = function() {
 
 
 /******绘制函数render************/
-function render(){	
+function render(){
     //清屏
 	gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
 
@@ -186,6 +186,22 @@ function render(){
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
 
 	gl.useProgram(program);
+	// ---------- 添加雾化 uniform ----------
+	gl.useProgram(program); // 确保使用主着色器
+
+    // 雾参数（可以替换为 dat.GUI 控制变量）
+	var fogColor = [0.6, 0.7, 0.8]; // 雾颜色
+	var fogStart = 5.0;             // 线性雾起始距离
+	var fogEnd = 20.0;              // 线性雾结束距离
+	var fogDensity = 0.05;          // 指数雾密度
+	var fogType = 1;                 // 雾类型 0:none, 1:linear, 2:exp, 3:exp2
+
+	gl.uniform3f(gl.getUniformLocation(program, "fogColor"), fogColor[0], fogColor[1], fogColor[2]);
+	gl.uniform1f(gl.getUniformLocation(program, "fogStart"), fogStart);
+	gl.uniform1f(gl.getUniformLocation(program, "fogEnd"), fogEnd);
+	gl.uniform1f(gl.getUniformLocation(program, "fogDensity"), fogDensity);
+	gl.uniform1i(gl.getUniformLocation(program, "fogType"), fogType);
+
 	gl.uniform4fv( gl.getUniformLocation(program,  "u_lightPosition"),flatten(lightPosition) );    
     //传递几何变换矩阵，视点和投影矩阵
 	ModelMatrix=formModelMatrix();
