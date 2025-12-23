@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>HW2 Ray Tracing - WebGL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+      color: #ddd;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    #glcanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: crosshair;
+    }
+    #overlay {
+      position: fixed;
+      left: 16px;
+      top: 16px;
+      padding: 8px 12px;
+      background: rgba(0, 0, 0, 0.55);
+      border-radius: 6px;
+      font-size: 13px;
+      line-height: 1.5;
+      pointer-events: none;
+    }
+    #overlay b {
+      color: #8fdb7f;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="glcanvas"></canvas>
+  <div id="overlay">
+    <div><b>WASD</b> 移动相机，<b>Z/C</b> 调整高度</div>
+    <div><b>鼠标</b> 移动视角</div>
+    <div><b>滚轮</b> 调整视野角度 (FOV)</div>
+    <div><b>1 / 2 / 3</b> 切换当前高亮的球/方块人</div>
+    <div><b>点击画面</b> 获取鼠标锁定，获得 FPS 风格视角</div>
+  </div>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
+
+
